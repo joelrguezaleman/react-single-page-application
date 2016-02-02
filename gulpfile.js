@@ -1,5 +1,6 @@
 var source             = require('vinyl-source-stream'),
     gulp               = require('gulp'),
+    babelify           = require('babelify'),
     browserify         = require('browserify'),
     watchify           = require('watchify'),
     notify             = require('gulp-notify'),
@@ -63,7 +64,10 @@ function buildScript(file, watch) {
         entries: [DEV_DIRECTORY + 'scripts/' + file],
         debug : true,
         cache: {},
-        packageCache: {}
+        packageCache: {},
+        transform: [babelify.configure({
+            presets : ["react"]
+        })]
     };
 
     var bundler = watch ? watchify(browserify(props)) : browserify(props);
