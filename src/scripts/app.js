@@ -9,7 +9,7 @@ var App = React.createClass({
         };
     },
 
-    addList: function(list) {
+    addList : function(list) {
         var timestamp = (new Date()).getTime();
         this.state.lists['list-' + timestamp] = list;
         this.setState({
@@ -17,11 +17,22 @@ var App = React.createClass({
         });
     },
 
-    render: function() {
+    renderList : function(key) {
+        return (
+            <li key={key}>
+                {this.state.lists[key].name}
+            </li>
+        )
+    },
+
+    render : function() {
         return (
             <div>
                 <div>
                     <ListCreator addList={this.addList} />
+                    <ul>
+                        {Object.keys(this.state.lists).map(this.renderList)}
+                    </ul>
                 </div>
                 <div>
 
