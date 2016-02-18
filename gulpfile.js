@@ -66,7 +66,7 @@ function buildScript(file, watch) {
         cache: {},
         packageCache: {},
         transform: [babelify.configure({
-            presets : ["react"]
+            presets : ["react", "es2015"]
         })]
     };
 
