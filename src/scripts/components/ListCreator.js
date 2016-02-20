@@ -1,22 +1,26 @@
-import React from 'react';
+(function () {
+   'use strict';
 
-var ListCreator = React.createClass({
-    createList : function(event) {
-        event.preventDefault();
-        var list = {
-            name : this.refs.name.value
-        };
-        this.props.addList(list);
-    },
+    var React = require('react');
 
-    render : function() {
-        return (
-            <form onSubmit={this.createList}>
-                <input type="text" ref="name"/>
-                <input type="submit" value="Create new list"/>
-            </form>
-        )
-    }
-});
+    var ListCreator = React.createClass({
+        createList : function(event) {
+            event.preventDefault();
+            var list = {
+                name : this.refs.name.value
+            };
+            this.props.addList(list);
+        },
 
-export default ListCreator;
+        render : function() {
+            return (
+                <form onSubmit={this.createList}>
+                    <input type="text" ref="name"/>
+                    <input type="submit" value="Create new list"/>
+                </form>
+            )
+        }
+    });
+
+    module.exports = ListCreator;
+}());
