@@ -8,4 +8,20 @@ describe('ListCreator', function() {
         var listCreator = TestUtils.renderIntoDocument(<ListCreator/>);
         expect(TestUtils.isCompositeComponent(listCreator)).toBeTruthy();
     });
+
+    it('should add a new list', function() {
+        var listCreator = TestUtils.renderIntoDocument(<ListCreator/>);
+        listCreator.refs.name.value = 'My new list';
+        
+        var button = listCreator.refs.button;
+        TestUtils.Simulate.click(button);
+
+        var lists = TestUtils.scryRenderedDOMComponentsWithClass(
+            listCreator, 'list'
+        );
+
+        setImmediate(function() {
+            expect(lists.length).toEqual(1);
+        });
+    });
 });
