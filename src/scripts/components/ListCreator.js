@@ -1,3 +1,5 @@
+import ListRenderer from './ListRenderer';
+
 (function () {
    'use strict';
 
@@ -9,14 +11,6 @@
             return {
                 lists : {}
             };
-        },
-
-        renderList : function(key) {
-            return (
-                <li className="list" key={key}>
-                    {this.state.lists[key].name}
-                </li>
-            )
         },
 
         createList : function(event) {
@@ -36,9 +30,7 @@
                         <input type="text" ref="name"/>
                         <input type="submit" ref="button" value="Create new list"/>
                     </form>
-                    <ul>
-                        {Object.keys(this.state.lists).map(this.renderList)}
-                    </ul>
+                    <ListRenderer lists={this.state.lists} />
                 </div>
             )
         }
