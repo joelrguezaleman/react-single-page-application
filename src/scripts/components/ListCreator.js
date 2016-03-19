@@ -29,14 +29,22 @@
             if (event.keyCode === 13) {
                 this.state.lists[event.target.id].name =
                     event.target.value;
+                this.setState(this.state.lists);
+
                 event.target.disabled = true;
             }
+        },
+
+        deleteList : function(event) {
+            var input = event.target.parentNode.childNodes[0];
+            delete this.state.lists[input.id];
         },
 
         renderList : function(key) {
             return (
                 <li className="list" key={key}>
-                    <input type="text" id={key} ref="list" defaultValue={this.state.lists[key].name} onClick={this.toggleListEdition} onKeyDown={this.updateList} disabled/>
+                    <input type="text" id={key} defaultValue={this.state.lists[key].name} onClick={this.toggleListEdition} onKeyDown={this.updateList} disabled/>
+                    <i className="fa fa-trash" onClick={this.deleteList}></i>
                 </li>
             )
         },

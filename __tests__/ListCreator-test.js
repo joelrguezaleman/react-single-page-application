@@ -16,7 +16,12 @@ describe('ListCreator', function() {
             target : {
                 disabled : true,
                 id : 'list_1',
-                value : 'Another name'
+                value : 'Another name',
+                parentNode : {
+                    childNodes : [{
+                        id : 'list_1'
+                    }]
+                }
             }
         };
     });
@@ -63,5 +68,22 @@ describe('ListCreator', function() {
         listCreator.updateList(event);
 
         expect(event.target.disabled).toEqual(true);
+    });
+
+    it('deletes the list', function() {
+        listCreator.state.lists.list_1 = {
+            name : 'List 1'
+        };
+        listCreator.state.lists.list_2 = {
+            name : 'List 2'
+        };
+
+        listCreator.deleteList(event);
+
+        expect(listCreator.state.lists).toEqual({
+            list_2: {
+                name: 'List 2'
+            }
+        });
     });
 });
