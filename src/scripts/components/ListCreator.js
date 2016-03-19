@@ -22,14 +22,14 @@
         },
 
         toggleListEdition : function(event) {
-            event.target.disabled = !event.target.disabled;
+            event.target.disabled = false;
         },
 
         updateList : function(event) {
             if (event.keyCode === 13) {
                 this.state.lists[event.target.id].name =
                     event.target.value;
-                this.toggleListEdition(event);
+                event.target.disabled = true;
             }
         },
 
