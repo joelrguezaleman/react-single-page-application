@@ -38,6 +38,7 @@
         deleteList : function(event) {
             var input = event.target.parentNode.childNodes[0];
             delete this.state.lists[input.id];
+            this.setState({lists : this.state.lists});
         },
 
         renderList : function(key) {
