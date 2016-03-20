@@ -21,10 +21,6 @@
             this.setState({lists : this.state.lists});
         },
 
-        toggleListEdition : function(event) {
-            event.target.disabled = false;
-        },
-
         updateList : function(event) {
             if (event.keyCode === 13) {
                 this.state.lists[event.target.id].name =
@@ -44,7 +40,7 @@
         renderList : function(key) {
             return (
                 <li className="list" key={key}>
-                    <input type="text" id={key} defaultValue={this.state.lists[key].name} onClick={this.toggleListEdition} onKeyDown={this.updateList} disabled/>
+                    <a href={"/list/" + key} id={key}>{this.state.lists[key].name}</a>
                     <i className="fa fa-trash" onClick={this.deleteList}></i>
                 </li>
             )

@@ -41,12 +41,6 @@ describe('ListCreator', function() {
         });
     });
 
-    it('enables the list to be edited', function() {
-        listCreator.toggleListEdition(event);
-
-        expect(event.target.disabled).toEqual(false);
-    });
-
     it('updates the list', function() {
         listCreator.state.lists.list_1 = {
             name : 'List 1'
