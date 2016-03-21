@@ -5,42 +5,29 @@
 
     var ListCreator = React.createClass({
 
-        getInitialState : function() {
-            return {
-                lists : {}
-            };
-        },
-
         createList : function(event) {
             event.preventDefault();
 
             var timestamp = (new Date()).getTime();
             var list = {name : this.refs.name.value};
 
-            this.state.lists['list_' + timestamp] = list;
-            this.setState({lists : this.state.lists});
-        },
-
-        updateList : function(event) {
-            if (event.keyCode === 13) {
-                this.state.lists[event.target.id].name =
-                    event.target.value;
-                this.setState(this.state.lists);
-
-                event.target.disabled = true;
-            }
+            this.props.onListCreated(list, timestamp);
         },
 
         deleteList : function(event) {
             var input = event.target.parentNode.childNodes[0];
-            delete this.state.lists[input.id];
-            this.setState({lists : this.state.lists});
+            this.props.onListDeleted(input.id);
+        },
+
+        setCurrentList : function(event) {
+            var input = event.target.parentNode.childNodes[0];
+            this.props.onListSelected(input.id);
         },
 
         renderList : function(key) {
             return (
                 <li className="list" key={key}>
-                    <a href={"/list/" + key} id={key}>{this.state.lists[key].name}</a>
+                    <a href="#" id={key} onClick={this.setCurrentList}>{this.props.lists[key].name}</a>
                     <i className="fa fa-trash" onClick={this.deleteList}></i>
                 </li>
             )
@@ -54,7 +41,7 @@
                         <input type="submit" ref="button" value="Create new list"/>
                     </form>
                     <ul>
-                        {Object.keys(this.state.lists).map(this.renderList)}
+                        {Object.keys(this.props.lists).map(this.renderList)}
                     </ul>
                 </div>
             )

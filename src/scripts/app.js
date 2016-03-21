@@ -8,13 +8,52 @@ var Navigation = ReactRouter.Navigation;
 var createBrowserHistory = require('history/lib/createBrowserHistory');
 
 import ListCreator from './components/ListCreator';
+import ListDetail from './components/ListDetail';
 
 var App = React.createClass({
+
+    getInitialState : function() {
+        return {
+            lists : {},
+            current_list : ''
+        };
+    },
+
+    addList : function(list, timestamp) {
+        this.state.lists['list_' + timestamp] = list;
+        this.setState({lists : this.state.lists});
+    },
+
+    updateList : function(event) {
+        this.state.lists[event.target.id].name = event.target.value;
+        this.setState(this.state.lists);
+
+        event.target.disabled = true;
+    },
+
+    deleteList : function(input_id) {
+        delete this.state.lists[input_id];
+        this.setState({lists : this.state.lists});
+    },
+
+    selectList : function(input_id) {
+        this.state.current_list = input_id;
+        this.setState({current_list : this.state.current_list});
+    },
 
     render : function() {
         return (
             <div>
-                <ListCreator />
+                <ListCreator
+                    onListCreated={this.addList}
+                    onListDeleted={this.deleteList}
+                    onListSelected={this.selectList}
+                    lists={this.state.lists}
+                    />
+                <ListDetail
+                    onListUpdated={this.updateList}
+                    lists={this.state.lists}
+                    current_list={this.state.current_list}/>
             </div>
         );
     }
@@ -31,7 +70,6 @@ var NotFound = React.createClass({
 var routes = (
     <Router history={createBrowserHistory()}>
         <Route path="/" component={App} />
-        <Route path="/list/:list_id" component={App} />
         <Route path="*" component={NotFound} />
     </Router>
 );
