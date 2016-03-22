@@ -5,17 +5,27 @@
 
     var ListDetail = React.createClass({
 
-        updateList : function(event) {
-            if (event.keyCode === 13) {
-                this.props.onListUpdated(event);
+        renderElements : function() {
+            var html = '';
+
+            var list = this.props.lists[this.props.current_list];
+            if (list.elements.length > 0) {
+                html += '<ul>';
+                for (var i=0; i<list.elements.length; i++) {
+                    html = html + '<li>' + list.elements[i] + '</li>';
+                }
+                html += '</ul>';
             }
+
+            return html;
         },
 
         render : function() {
             if (this.props.lists[this.props.current_list]) {
                 return (
                     <div>
-                        <input type="text" value={this.props.lists[this.props.current_list].name} onChange={this.updateList} />
+                        <p>{this.props.lists[this.props.current_list].name}</p>
+                        {this.renderElements}
                     </div>
                 )
             } else {

@@ -9,7 +9,10 @@
             event.preventDefault();
 
             var timestamp = (new Date()).getTime();
-            var list = {name : this.refs.name.value};
+            var list = {
+                name : this.refs.name.value,
+                elements : []
+            };
 
             this.props.onListCreated(list, timestamp);
         },

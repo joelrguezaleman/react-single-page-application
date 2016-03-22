@@ -24,13 +24,6 @@ var App = React.createClass({
         this.setState({lists : this.state.lists});
     },
 
-    updateList : function(event) {
-        this.state.lists[event.target.id].name = event.target.value;
-        this.setState(this.state.lists);
-
-        event.target.disabled = true;
-    },
-
     deleteList : function(input_id) {
         delete this.state.lists[input_id];
         this.setState({lists : this.state.lists});
@@ -51,7 +44,6 @@ var App = React.createClass({
                     lists={this.state.lists}
                     />
                 <ListDetail
-                    onListUpdated={this.updateList}
                     lists={this.state.lists}
                     current_list={this.state.current_list}/>
             </div>
