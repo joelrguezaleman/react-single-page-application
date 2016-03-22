@@ -5,27 +5,36 @@
 
     var ListDetail = React.createClass({
 
-        renderElements : function() {
-            var html = '';
+        createElement : function(event) {
+            event.preventDefault();
 
-            var list = this.props.lists[this.props.current_list];
-            if (list.elements.length > 0) {
-                html += '<ul>';
-                for (var i=0; i<list.elements.length; i++) {
-                    html = html + '<li>' + list.elements[i] + '</li>';
-                }
-                html += '</ul>';
-            }
+            this.props.onElementCreated(
+                this.refs.element_name.value,
+                'element_' + (new Date()).getTime()
+            );
+        },
 
-            return html;
+        renderElement : function(key) {
+            return (
+                <li key={key}>
+                    {this.props.lists[this.props.current_list].elements[key]}
+                </li>
+            )
         },
 
         render : function() {
-            if (this.props.lists[this.props.current_list]) {
+            var current_list = this.props.lists[this.props.current_list];
+            if (current_list) {
                 return (
                     <div>
-                        <p>{this.props.lists[this.props.current_list].name}</p>
-                        {this.renderElements}
+                        <p>{current_list.name}</p>
+                        <form onSubmit={this.createElement}>
+                            <input type="text" ref="element_name"/>
+                            <input type="submit" ref="button" value="Create new element"/>
+                        </form>
+                        <ul>
+                            {Object.keys(current_list.elements).map(this.renderElement)}
+                        </ul>
                     </div>
                 )
             } else {

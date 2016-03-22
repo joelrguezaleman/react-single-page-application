@@ -34,6 +34,11 @@ var App = React.createClass({
         this.setState({current_list : this.state.current_list});
     },
 
+    createElement : function(value, key) {
+        this.state.lists[this.state.current_list].elements.splice(key, 0, value);
+        this.setState({lists : this.state.lists});
+    },
+
     render : function() {
         return (
             <div>
@@ -44,6 +49,7 @@ var App = React.createClass({
                     lists={this.state.lists}
                     />
                 <ListDetail
+                    onElementCreated={this.createElement}
                     lists={this.state.lists}
                     current_list={this.state.current_list}/>
             </div>

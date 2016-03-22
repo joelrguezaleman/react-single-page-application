@@ -10,7 +10,7 @@
 
             var timestamp = (new Date()).getTime();
             var list = {
-                name : this.refs.name.value,
+                name : this.refs.list_name.value,
                 elements : []
             };
 
@@ -40,7 +40,7 @@
             return (
                 <div>
                     <form onSubmit={this.createList}>
-                        <input type="text" ref="name"/>
+                        <input type="text" ref="list_name"/>
                         <input type="submit" ref="button" value="Create new list"/>
                     </form>
                     <ul>
