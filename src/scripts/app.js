@@ -24,18 +24,23 @@ var App = React.createClass({
         this.setState({lists : this.state.lists});
     },
 
-    deleteList : function(input_id) {
-        delete this.state.lists[input_id];
+    deleteList : function(list_id) {
+        delete this.state.lists[list_id];
         this.setState({lists : this.state.lists});
     },
 
-    selectList : function(input_id) {
-        this.state.current_list = input_id;
+    selectList : function(list_id) {
+        this.state.current_list = list_id;
         this.setState({current_list : this.state.current_list});
     },
 
     createElement : function(value, key) {
         this.state.lists[this.state.current_list].elements.splice(key, 0, value);
+        this.setState({lists : this.state.lists});
+    },
+
+    deleteElement : function(element_id) {
+        delete this.state.lists[this.state.current_list].elements[element_id];
         this.setState({lists : this.state.lists});
     },
 
@@ -50,6 +55,7 @@ var App = React.createClass({
                     />
                 <ListDetail
                     onElementCreated={this.createElement}
+                    onElementDeleted={this.deleteElement}
                     lists={this.state.lists}
                     current_list={this.state.current_list}/>
             </div>

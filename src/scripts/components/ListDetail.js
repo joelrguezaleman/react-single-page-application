@@ -14,10 +14,16 @@
             );
         },
 
+        deleteElement : function(event) {
+            var label = event.target.parentNode.childNodes[0];
+            this.props.onElementDeleted(label.id);
+        },
+
         renderElement : function(key) {
             return (
                 <li key={key}>
-                    {this.props.lists[this.props.current_list].elements[key]}
+                    <label id={key}>{this.props.lists[this.props.current_list].elements[key]}</label>
+                    <i className="fa fa-trash" onClick={this.deleteElement}></i>
                 </li>
             )
         },
