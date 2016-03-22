@@ -18,13 +18,12 @@
         },
 
         deleteList : function(event) {
-            var input = event.target.parentNode.childNodes[0];
-            this.props.onListDeleted(input.id);
+            var anchor = event.target.parentNode.childNodes[0];
+            this.props.onListDeleted(anchor.id);
         },
 
         setCurrentList : function(event) {
-            var input = event.target.parentNode.childNodes[0];
-            this.props.onListSelected(input.id);
+            this.props.onListSelected(event.target.id);
         },
 
         renderList : function(key) {
