@@ -7,7 +7,7 @@ var Route = ReactRouter.Route;
 var Navigation = ReactRouter.Navigation;
 var createBrowserHistory = require('history/lib/createBrowserHistory');
 
-import ListCreator from './components/ListCreator';
+import ListManager from './components/ListManager';
 import ListDetail from './components/ListDetail';
 
 var App = React.createClass({
@@ -47,7 +47,7 @@ var App = React.createClass({
     render : function() {
         return (
             <div>
-                <ListCreator
+                <ListManager
                     onListCreated={this.addList}
                     onListDeleted={this.deleteList}
                     onListSelected={this.selectList}

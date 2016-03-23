@@ -3,7 +3,7 @@
 
     var React = require('react');
 
-    var ListCreator = React.createClass({
+    var ListManager = React.createClass({
 
         createList : function(event) {
             event.preventDefault();
@@ -50,5 +50,5 @@
         }
     });
 
-    module.exports = ListCreator;
+    module.exports = ListManager;
 }());
