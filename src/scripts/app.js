@@ -8,7 +8,7 @@ var Navigation = ReactRouter.Navigation;
 var createBrowserHistory = require('history/lib/createBrowserHistory');
 
 import ListManager from './components/ListManager';
-import ListDetail from './components/ListDetail';
+import ElementManager from './components/ElementManager';
 
 var App = React.createClass({
 
@@ -53,7 +53,7 @@ var App = React.createClass({
                     onListSelected={this.selectList}
                     lists={this.state.lists}
                     />
-                <ListDetail
+                <ElementManager
                     onElementCreated={this.createElement}
                     onElementDeleted={this.deleteElement}
                     lists={this.state.lists}
