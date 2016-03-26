@@ -27,6 +27,10 @@ var App = React.createClass({
     deleteList : function(list_id) {
         delete this.state.lists[list_id];
         this.setState({lists : this.state.lists});
+
+        if (list_id === this.state.current_list) {
+            this.selectList('');
+        }
     },
 
     selectList : function(list_id) {
