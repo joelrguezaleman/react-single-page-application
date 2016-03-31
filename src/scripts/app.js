@@ -19,6 +19,22 @@ var App = React.createClass({
         };
     },
 
+    componentDidMount : function() {
+        var lists_ref = localStorage.getItem('lists');
+        var current_list_ref = localStorage.getItem('current_list');
+        if (lists_ref && current_list_ref) {
+            this.setState({
+                lists : JSON.parse(lists_ref),
+                current_list : current_list_ref
+            });
+        }
+    },
+
+    componentWillUpdate : function(next_props, next_state) {
+        localStorage.setItem('lists', JSON.stringify(next_state.lists));
+        localStorage.setItem('current_list', next_state.current_list);
+    },
+
     addList : function(list, timestamp) {
         this.state.lists['list_' + timestamp] = list;
         this.setState({lists : this.state.lists});
@@ -44,7 +60,7 @@ var App = React.createClass({
     },
 
     deleteElement : function(element_id) {
-        delete this.state.lists[this.state.current_list].elements[element_id];
+        this.state.lists[this.state.current_list].elements.splice([element_id], 1);
         this.setState({lists : this.state.lists});
     },
 
