@@ -43,33 +43,16 @@ import ElementManager from './components/ElementManager';
             localStorage.setItem('current_list', next_state.current_list);
         },
 
-        addList : function(list, timestamp) {
-            this.state.lists['list_' + timestamp] = list;
-            this.setState({lists : this.state.lists});
+        updateLists : function(lists) {
+            this.setState({
+                lists : lists
+            });
         },
 
-        deleteList : function(list_id) {
-            delete this.state.lists[list_id];
-            this.setState({lists : this.state.lists});
-
-            if (list_id === this.state.current_list) {
-                this.selectList('');
-            }
-        },
-
-        selectList : function(list_id) {
-            this.state.current_list = list_id;
-            this.setState({current_list : this.state.current_list});
-        },
-
-        createElement : function(value, key) {
-            this.state.lists[this.state.current_list].elements.splice(key, 0, value);
-            this.setState({lists : this.state.lists});
-        },
-
-        deleteElement : function(element_id) {
-            this.state.lists[this.state.current_list].elements.splice([element_id], 1);
-            this.setState({lists : this.state.lists});
+        updateCurrentList : function(current_list) {
+            this.setState({
+                current_list : current_list
+            });
         },
 
         loadFromFirebase : function() {
@@ -97,16 +80,16 @@ import ElementManager from './components/ElementManager';
             return (
                 <div>
                     <ListManager
-                        onListCreated={this.addList}
-                        onListDeleted={this.deleteList}
-                        onListSelected={this.selectList}
+                        updateLists={this.updateLists}
+                        updateCurrentList={this.updateCurrentList}
                         lists={this.state.lists}
                         />
                     <ElementManager
-                        onElementCreated={this.createElement}
-                        onElementDeleted={this.deleteElement}
+                        updateLists={this.updateLists}
+                        updateCurrentList={this.updateCurrentList}
                         lists={this.state.lists}
-                        current_list={this.state.current_list}/>
+                        current_list={this.state.current_list}
+                        />
                     <button onClick={this.loadFromFirebase}>Load from Firebase</button>
                     <button onClick={this.saveToFirebase}>Save to Firebase</button>
                 </div>

@@ -14,16 +14,25 @@
                 elements : []
             };
 
-            this.props.onListCreated(list, timestamp);
+            this.props.lists['list_' + timestamp] = list;
+            this.props.updateLists(this.props.lists);
         },
 
         deleteList : function(event) {
             var anchor = event.target.parentNode.childNodes[0];
-            this.props.onListDeleted(anchor.id);
+            delete this.props.lists[anchor.id];
+
+            var current_list = this.props.current_list;
+            if (anchor.id === this.props.current_list) {
+                current_list = '';
+            }
+
+            this.props.updateLists(this.props.lists);
+            this.props.updateCurrentList(current_list);
         },
 
         setCurrentList : function(event) {
-            this.props.onListSelected(event.target.id);
+            this.props.updateCurrentList(event.target.id);
         },
 
         renderList : function(key) {

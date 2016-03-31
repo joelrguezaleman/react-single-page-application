@@ -8,15 +8,22 @@
         createElement : function(event) {
             event.preventDefault();
 
-            this.props.onElementCreated(
-                this.refs.element_name.value,
-                'element_' + (new Date()).getTime()
+            this.props.lists[this.props.current_list].elements.splice(
+                'element_' + (new Date()).getTime(),
+                0,
+                this.refs.element_name.value
             );
+
+            this.props.updateLists(this.props.lists);
         },
 
         deleteElement : function(event) {
             var label = event.target.parentNode.childNodes[0];
-            this.props.onElementDeleted(label.id);
+            this.props.lists[this.props.current_list].elements.splice(
+                [label.id], 1
+            );
+
+            this.props.updateLists(this.props.lists);
         },
 
         renderElement : function(key) {
