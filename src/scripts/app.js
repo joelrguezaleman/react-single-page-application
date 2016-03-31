@@ -69,6 +69,18 @@ var App = React.createClass({
         this.setState({lists : this.state.lists});
     },
 
+    loadFromFirebase : function() {
+        base.fetch('lists', {
+            context: this,
+            then(data) {
+                this.setState({
+                    lists : data.lists,
+                    current_list : data.current_list
+                });
+            }
+        });
+    },
+
     saveToFirebase : function() {
         base.post('lists', {
             data: {
@@ -92,6 +104,7 @@ var App = React.createClass({
                     onElementDeleted={this.deleteElement}
                     lists={this.state.lists}
                     current_list={this.state.current_list}/>
+                <button onClick={this.loadFromFirebase}>Load from Firebase</button>
                 <button onClick={this.saveToFirebase}>Save to Firebase</button>
             </div>
         );
