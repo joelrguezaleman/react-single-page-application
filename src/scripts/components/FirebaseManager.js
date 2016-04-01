@@ -20,6 +20,9 @@
         },
 
         save : function() {
+            var current_list = this.props.current_list ?
+                this.props.current_list : '';
+
             base.post('lists', {
                 data: {
                     lists : this.props.lists,

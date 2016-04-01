@@ -59,6 +59,7 @@ import NotFound from './components/NotFound';
                         updateLists={this.updateLists}
                         updateCurrentList={this.updateCurrentList}
                         lists={this.state.lists}
+                        current_list={this.state.current_list}
                         />
                     <ElementManager
                         updateLists={this.updateLists}
