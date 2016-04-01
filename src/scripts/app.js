@@ -1,5 +1,6 @@
-import ListManager from './components/ListManager';
 import ElementManager from './components/ElementManager';
+import ListManager from './components/ListManager';
+import NotFound from './components/NotFound';
 
 (function () {
    'use strict';
@@ -93,14 +94,6 @@ import ElementManager from './components/ElementManager';
                     <button onClick={this.loadFromFirebase}>Load from Firebase</button>
                     <button onClick={this.saveToFirebase}>Save to Firebase</button>
                 </div>
-            );
-        }
-    });
-
-    var NotFound = React.createClass({
-        render : function() {
-            return (
-                <h1>Page not found</h1>
             );
         }
     });
