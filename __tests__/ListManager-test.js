@@ -7,9 +7,25 @@ describe('ListManager', function() {
 
     var list_manager;
     var event;
+    var lists;
+
+    var updateLists = function(lists) {
+        return lists;
+    };
+    var updateCurrentList = function(current_list) {
+        return current_list;
+    };
 
     beforeEach(function() {
-        list_manager = TestUtils.renderIntoDocument(<ListManager/>);
+        lists = {};
+
+        list_manager = TestUtils.renderIntoDocument(
+            <ListManager
+                updateLists={updateLists}
+                updateCurrentList={updateCurrentList}
+                lists={lists}
+                />
+        );
 
         event = {
             keyCode : 13,
@@ -22,39 +38,24 @@ describe('ListManager', function() {
                         id : 'list_1'
                     }]
                 }
-            }
+            },
+            preventDefault : function () {}
         };
     });
 
     it('adds a new list', function() {
-        list_manager.refs.list_name.value = 'My new list';
-        
-        var button = list_manager.refs.button;
-        TestUtils.Simulate.click(button);
+        list_manager.createList(event);
 
-        var lists = TestUtils.scryRenderedDOMComponentsWithClass(
-            list_manager, 'list'
-        );
-
-        setImmediate(function() {
-            expect(lists.length).toEqual(1);
-        });
+        expect(Object.keys(lists).length).toEqual(1);
     });
 
-    it('deletes the list', function() {
-        list_manager.state.lists.list_1 = {
-            name : 'List 1'
-        };
-        list_manager.state.lists.list_2 = {
-            name : 'List 2'
-        };
+    it('deletes a list', function() {
+        list_manager.createList(event);
 
+        var list_id = Object.keys(lists)[0];
+        event.target.parentNode.childNodes[0].id = list_id;
         list_manager.deleteList(event);
 
-        expect(list_manager.state.lists).toEqual({
-            list_2: {
-                name: 'List 2'
-            }
-        });
+        expect(Object.keys(lists).length).toEqual(0);
     });
 });

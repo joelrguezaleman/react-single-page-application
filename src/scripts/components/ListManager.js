@@ -39,7 +39,7 @@
             return (
                 <li className="list" key={key}>
                     <a href="#" id={key} onClick={this.setCurrentList}>{this.props.lists[key].name}</a>
-                    <i className="fa fa-trash" onClick={this.deleteList}></i>
+                    <i className="fa fa-trash" ref="delete_list" onClick={this.deleteList}></i>
                 </li>
             )
         },
