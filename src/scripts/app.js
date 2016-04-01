@@ -12,7 +12,6 @@ import NotFound from './components/NotFound';
     var ReactRouter = require('react-router');
     var Router = ReactRouter.Router;
     var Route = ReactRouter.Route;
-    var Navigation = ReactRouter.Navigation;
     var createBrowserHistory = require('history/lib/createBrowserHistory');
 
     var App = React.createClass({
@@ -36,8 +35,12 @@ import NotFound from './components/NotFound';
         },
 
         componentWillUpdate : function(next_props, next_state) {
-            localStorage.setItem('lists', JSON.stringify(next_state.lists));
-            localStorage.setItem('current_list', next_state.current_list);
+            localStorage.setItem(
+                'lists', JSON.stringify(next_state.lists)
+            );
+            localStorage.setItem(
+                'current_list', next_state.current_list
+            );
         },
 
         updateLists : function(lists) {
