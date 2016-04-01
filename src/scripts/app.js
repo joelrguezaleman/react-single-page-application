@@ -1,4 +1,5 @@
 import ElementManager from './components/ElementManager';
+import FirebaseManager from './components/FirebaseManager';
 import ListManager from './components/ListManager';
 import NotFound from './components/NotFound';
 
@@ -13,11 +14,6 @@ import NotFound from './components/NotFound';
     var Route = ReactRouter.Route;
     var Navigation = ReactRouter.Navigation;
     var createBrowserHistory = require('history/lib/createBrowserHistory');
-
-    var Rebase = require('re-base');
-    var base = Rebase.createClass(
-        'https://list-manager-app.firebaseio.com/'
-    );
 
     var App = React.createClass({
 
@@ -56,27 +52,6 @@ import NotFound from './components/NotFound';
             });
         },
 
-        loadFromFirebase : function() {
-            base.fetch('lists', {
-                context: this,
-                then(data) {
-                    this.setState({
-                        lists : data.lists,
-                        current_list : data.current_list
-                    });
-                }
-            });
-        },
-
-        saveToFirebase : function() {
-            base.post('lists', {
-                data: {
-                    lists : this.state.lists,
-                    current_list : this.state.current_list
-                }
-            });
-        },
-
         render : function() {
             return (
                 <div>
@@ -91,8 +66,12 @@ import NotFound from './components/NotFound';
                         lists={this.state.lists}
                         current_list={this.state.current_list}
                         />
-                    <button onClick={this.loadFromFirebase}>Load from Firebase</button>
-                    <button onClick={this.saveToFirebase}>Save to Firebase</button>
+                    <FirebaseManager
+                        updateLists={this.updateLists}
+                        updateCurrentList={this.updateCurrentList}
+                        lists={this.state.lists}
+                        current_list={this.state.current_list}
+                        />
                 </div>
             );
         }
