@@ -28,11 +28,7 @@ describe('ListManager', function() {
         );
 
         event = {
-            keyCode : 13,
             target : {
-                disabled : true,
-                id : 'list_1',
-                value : 'Another name',
                 parentNode : {
                     childNodes : [{
                         id : 'list_1'

@@ -1,16 +1,17 @@
 (function () {
     'use strict';
 
+    const FIREBASE_URL = 'https://list-manager-app.firebaseio.com/';
+    const FIREBASE_REFERENCE = 'lists';
+
     var React = require('react');
 
     var Rebase = require('re-base');
-    var base = Rebase.createClass(
-        'https://list-manager-app.firebaseio.com/'
-    );
+    var base = Rebase.createClass(FIREBASE_URL);
 
     var FirebaseManager = React.createClass({
         load : function() {
-            base.fetch('lists', {
+            base.fetch(FIREBASE_REFERENCE, {
                 context: this,
                 then(data) {
                     this.props.updateLists(data.lists);
@@ -23,7 +24,7 @@
             var current_list = this.props.current_list ?
                 this.props.current_list : '';
 
-            base.post('lists', {
+            base.post(FIREBASE_REFERENCE, {
                 data: {
                     lists : this.props.lists,
                     current_list : this.props.current_list
